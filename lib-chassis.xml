@@ -1,0 +1,22 @@
+<!--
+  Descirption: Chassis Support Library
+  Author: qianwan.Jin
+  Date: 2022-08-24
+  E-mail: qianwan233@foxmail.com
+-->
+<script type="text/javascript" src="./blocks/chassis.js"></script>
+<script type="text/javascript" src="./generators/chassis.js"></script>
+<script type="text/javascript" src="./language/zh-hans.js"></script>
+<script type="text/javascript" src="./language/zh-hant.js"></script>
+<script type="text/javascript" src="./language/en.js"></script>
+
+<category name="Chassis" id="Chassis" colour="20">
+  <block type="chassis_status">
+  </block>
+  <block type="chassis_set">
+      <value name="STAT">
+        <shadow type="chassis_status">
+        </shadow>
+      </value>
+  </block>
+</category>
