@@ -4,6 +4,21 @@ goog.provide('Blockly.Arduino.base');
 goog.require('Blockly.Arduino');
 goog.require('Mixly.JSFuncs');
 
+// Init
+
+Blockly.Arduino.forBlock['chassis_init'] = function() {
+    var name = this.getFieldValue('NAME');
+    var dropdownType = this.getFieldValue('TYPE');
+    Blockly.Arduino.definitions_['include_Chassis'] = '#include <Chassis.h>';
+    Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
+    Blockly.Arduino.definitions_[`var_declare_${name}`] = `Chassis ${name};`;
+    Blockly.Arduino.setups_[`setup_compass_${name}`] =  `${name}.chassis_set(0);`;
+    var code = '';
+    return code;
+};
+
+
+
 Blockly.Arduino.forBlock['chassis_status'] = function () {
     // Boolean values HIGH and LOW.
     var code = this.getFieldValue('STATUS');
@@ -14,7 +29,8 @@ Blockly.Arduino.forBlock['chassis_status'] = function () {
 Blockly.Arduino.forBlock['chassis_set'] = function () {
     var dropdown_stat = Blockly.Arduino.valueToCode(this, 'STAT', Blockly.Arduino.ORDER_ATOMIC);
     var code = "";
-    code += 'chassis_set(' + dropdown_stat + ');\n';
+    var name = this.getFieldValue('NAME');
+    code += `${name}.chassis_set(${dropdown_stat});\n`;
     return code;
 };
 

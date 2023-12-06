@@ -4,12 +4,27 @@ goog.provide('Blockly.Blocks.base');
 goog.require('Blockly.Blocks');
 Blockly.Msg['CHASSIS_HUE'] = 20;//'#ae3838';//40;
 
+Blockly.Blocks['chassis_init'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CHASSIS_INIT)
+            .appendField(new Blockly.FieldTextInput("chassis"), "NAME");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(Blockly.Msg['CHASSIS_HUE']);
+        this.setTooltip("Blockly.Msg.CHASSIS_INIT");
+        this.setHelpUrl("");
+    }
+};
+
 Blockly.Blocks['chassis_status'] = {
     init: function () {
         this.setColour(Blockly.Msg['CHASSIS_HUE']);
-        this.appendDummyInput("")
-            .appendField(new Blockly.FieldDropdown([["前", "FORWARD"], ["后", "DOWNWARD"],["左", "LEFT"], ["右", "RIGHT"]]), 'STATUS')
-        this.setOutput(true, String);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CHASSIS_STATUS)
+            .appendField(new Blockly.FieldDropdown([["前", "0"], ["后", "1"],["左", "2"], ["右", "3"]]), 'STATUS')
+        this.setOutput(true, Number);
         this.setTooltip(Blockly.Msg.CHASSIS_STATUS);
     }
 };
@@ -18,9 +33,11 @@ Blockly.Blocks['chassis_status'] = {
 Blockly.Blocks['chassis_set'] = {
     init: function () {
         this.setColour(Blockly.Msg['CHASSIS_HUE']);
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldTextInput("chassis"), "NAME");
         this.appendValueInput("STAT")
             .appendField(Blockly.Msg.CHASSIS_STATUS_SET)
-            .setCheck([String]);
+            .setCheck([Number]);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setInputsInline(true);
