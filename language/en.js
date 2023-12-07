@@ -4,7 +4,7 @@
 
     const { En } = Blockly.Lang;
 
-    En.CHASSIS_INIT = 'Init Chassis class: '
-    En.CHASSIS_STATUS_SET = 'Set chassis mode';
+    En.CHASSIS_INIT = 'Init chassis class: '
+    En.CHASSIS_MOVE = 'Move chassis';
 
 })();

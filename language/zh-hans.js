@@ -4,7 +4,7 @@
 
     const { ZhHans } = Blockly.Lang;
 
-    ZhHans.CHASSIS_INIT = 'Init Chassis class: '
-    ZhHans.CHASSIS_STATUS_SET = 'Set chassis mode';
+    ZhHans.CHASSIS_INIT = 'Init chassis class: '
+    ZhHans.CHASSIS_MOVE = 'Move chassis';
     
 })();

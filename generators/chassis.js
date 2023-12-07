@@ -12,7 +12,7 @@ Blockly.Arduino.forBlock['chassis_init'] = function() {
     Blockly.Arduino.definitions_['include_Chassis'] = '#include <Chassis.h>';
     Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
     Blockly.Arduino.definitions_[`var_declare_${name}`] = `Chassis ${name};`;
-    Blockly.Arduino.setups_[`setup_compass_${name}`] =  `${name}.chassis_set(0);`;
+    Blockly.Arduino.setups_[`setup_compass_${name}`] =  `${name}.Init();`;
     var code = '';
     return code;
 };
@@ -26,11 +26,11 @@ Blockly.Arduino.forBlock['chassis_status'] = function () {
 };
 
 
-Blockly.Arduino.forBlock['chassis_set'] = function () {
+Blockly.Arduino.forBlock['chassis_move'] = function () {
     var dropdown_stat = Blockly.Arduino.valueToCode(this, 'STAT', Blockly.Arduino.ORDER_ATOMIC);
     var code = "";
     var name = this.getFieldValue('NAME');
-    code += `${name}.chassis_set(${dropdown_stat});\n`;
+    code += `${name}.Move(${dropdown_stat});\n`;
     return code;
 };
 

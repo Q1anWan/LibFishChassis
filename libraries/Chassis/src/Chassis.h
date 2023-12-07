@@ -2,14 +2,14 @@
 #define CHASSIS_H
 
 #include "Arduino.h"
-#include "Wire.h"
+#include "SPI.h"
 
 class Chassis
 {
-
 public:
 	Chassis(){};
-	void chassis_set(uint8_t position);
+	void Init();
+	void Move(uint8_t position);
 };
 
 #endif

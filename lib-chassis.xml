@@ -21,7 +21,7 @@
   <block type="chassis_status">
   </block>
   
-  <block type="chassis_set">
+  <block type="chassis_move">
       <value name="STAT">
         <shadow type="chassis_status">
         </shadow>

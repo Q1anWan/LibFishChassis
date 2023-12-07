@@ -30,18 +30,18 @@ Blockly.Blocks['chassis_status'] = {
 };
 
 
-Blockly.Blocks['chassis_set'] = {
+Blockly.Blocks['chassis_move'] = {
     init: function () {
         this.setColour(Blockly.Msg['CHASSIS_HUE']);
         this.appendDummyInput()
             .appendField(new Blockly.FieldTextInput("chassis"), "NAME");
         this.appendValueInput("STAT")
-            .appendField(Blockly.Msg.CHASSIS_STATUS_SET)
+            .appendField(Blockly.Msg.CHASSIS_MOVE)
             .setCheck([Number]);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setInputsInline(true);
-        this.setTooltip(Blockly.Msg.CHASSIS_STATUS_SET);
+        this.setTooltip(Blockly.Msg.CHASSIS_MOVE);
     }
 };
 

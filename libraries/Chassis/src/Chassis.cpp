@@ -1,9 +1,13 @@
-
 #include "Arduino.h"
 #include "Chassis.h"
-#include "Wire.h"
 
-void Chassis::chassis_set(uint8_t position)
+void Chassis::Init()
+{
+	SPI.begin();
+	SPI.write16(0x1234);
+
+}
+void Chassis::Move(uint8_t position)
 {
 	;
 }
