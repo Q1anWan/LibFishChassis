@@ -2,6 +2,11 @@
 
 goog.provide('Blockly.Blocks.base');
 goog.require('Blockly.Blocks');
+
+const mediaDirPath = path.join(document.currentScript.src, '../../media/');
+const { Config, Editor } = Mixly;
+const SVG_PATH = mediaDirPath + "/compass.svg";
+
 Blockly.Msg['CHASSIS_HUE'] = 20;//'#ae3838';//40;
 
 Blockly.Blocks['chassis_init'] = {
