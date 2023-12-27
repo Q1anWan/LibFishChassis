@@ -1,0 +1,3 @@
+[submodule "libraries/Chassis/src/Mavlink"]
+	path = libraries/Chassis/src/Mavlink
+	url = git@github.com:Q1anWan/FishCom.git
