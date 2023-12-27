@@ -1,35 +1,38 @@
+/*
+ * @Description: Library of FishChassis
+ * @Author: qianwan
+ * @Date: 2023-12-16 22:12:55
+ * @LastEditTime: 2023-12-27 11:51:59
+ * @LastEditors: qianwan
+ */
 #ifndef CHASSIS_H
 #define CHASSIS_H
 
 #include "Arduino.h"
 #include "SPI.h"
+#include "./Mavlink/FishChassis/mavlink.h"
+#include <cstdint>
 
-struct wheel
-{
-	/* data */
-	float velocity;
-	float encoder;
-};
-
+#define MSG_RX 0
+#define MSG_TX 
 class Chassis
 {
 protected:
-	bool _chassis_enable = 0;
-	bool _headless = 0;
-	wheel _wheels[4]={0};
-	float _wheelD = 0.075;
-	float _max_speed = 2.0;
+	mavlink_chs_ctrl_info_t chs_ctrl[2];
+	mavlink_chs_servos_info_t chs_servos[2];
+	mavlink_chs_odom_info_t chs_odom;
+	mavlink_chs_manage_info_t chs_manage;
+	int16_t _wheels[4]={0};
+
 public:
-	Chassis(float wheelD=0.075f):_wheelD(wheelD){};
+	Chassis(){};
 	void Init();
 	void Update();
 	
 	void Unlock();
 	void Lock();
 
-	void ClearOdemeter();
-	float GetOdemeter(uint8_t wheel);
-	void MoveVelocity(float wheel0, float wheel1, float wheel2, float wheel3);
+	void MoveVelocity(int16_t wheel0, int16_t wheel1, int16_t wheel2, int16_t wheel3);
 };
 
 #endif
