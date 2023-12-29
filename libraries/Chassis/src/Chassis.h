@@ -2,7 +2,7 @@
  * @Description: Library of FishChassis
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2023-12-28 01:44:32
+ * @LastEditTime: 2023-12-29 18:05:09
  * @LastEditors: qianwan
  */
 #ifndef CHASSIS_H
@@ -15,7 +15,7 @@
 
 #define MSG_SPI_FLAG 0xAB
 #define MSG_SPI_MAX_LOSE 2
-#define MSG_RECNT_TIM 29
+#define MSG_RECNT_TIM 33
 
 #define MSG_SPI_TOTAL_TX_LEN (MAVLINK_MSG_ID_CHS_ODOM_INFO_LEN)
 #define MSG_SPI_TOTAL_RX_LEN                                                   \

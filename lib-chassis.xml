@@ -1,7 +1,7 @@
 <!--
   Descirption: Chassis Support Library
   Author: qianwan.Jin
-  Date: 2022-08-24
+  Date: 2023-12-10
   E-mail: qianwan233@foxmail.com
 -->
 <link rel="stylesheet" type="text/css" href="./css/chassis.css"></link>
@@ -13,26 +13,58 @@
 
 <category name="Chassis" id="mixly_Chassis" colour="20">
   <block type="chassis_init">
-      <value name="NAME">
-        <shadow type="String">
-        </shadow>
-      </value>
   </block>
 
   <block type="chassis_status">
   </block>
-  
+
+  <block type="chassis_rst_ins">
+  </block>
+
+  <block type="chassis_check_status">
+  </block>
+
+  <block type="chassis_get_ins">
+  </block>
+
+  <block type="chassis_get_vel">
+  </block>
+
   <block type="chassis_move">
-      <value name="STAT">
-        <shadow type="chassis_status">
-        </shadow>
-      </value>
+    <value name="rpm_wheel0">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="rpm_wheel1">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="rpm_wheel2">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="rpm_wheel3">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="chassis_servos">
+    <value name="servo_dc">
+      <shadow type="math_number">
+        <field name="NUM">1499</field>
+      </shadow>
+    </value>
   </block>
 
 </category>
 
 <category name="LED" id="mixly_led" colour="60">
-  <block type="chassis_init">
+  <!-- <block type="chassis_init">
       <value name="NAME">
         <shadow type="String">
         </shadow>
@@ -47,6 +79,6 @@
         <shadow type="chassis_status">
         </shadow>
       </value>
-  </block>
+  </block> -->
 
 </category>

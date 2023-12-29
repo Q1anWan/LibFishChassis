@@ -2,7 +2,7 @@
  * @Description: Library of chassis driver
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2023-12-28 01:27:39
+ * @LastEditTime: 2023-12-29 18:31:55
  * @LastEditors: qianwan
  */
 #include "Chassis.h"
@@ -105,12 +105,9 @@ bool Chassis::Unlock() {
  *   1: fail
  */
 bool Chassis::Lock() {
-  if (_chassis_online) {
-    chs_manage.enable_chassis = true;
-    return 0;
-  }
-
-  return 1;
+  chs_manage.enable_chassis = false;
+  chs_manage.enable_servos = false;
+  return _chassis_online;
 }
 
 /**
@@ -133,7 +130,7 @@ bool Chassis::RstINS() {
   * @param {uint8_t} Pst
     0: x-axis m/s
     1: y-axis m/s
-    2: z-axis rad/s
+    2: z-axis °/s
   * @return
     velocity
 */
@@ -146,7 +143,7 @@ float Chassis::GetVelocity(uint8_t pst) {
     return chs_odom.vy;
     break;
   case 2:
-    return chs_odom.vw;
+    return chs_odom.vw*57.2957795f;
     break;
   default:
     return 0;
