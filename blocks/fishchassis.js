@@ -3,22 +3,24 @@
 goog.provide('Blockly.Blocks.base');
 goog.require('Blockly.Blocks');
 
-const mediaDirPath = path.join(document.currentScript.src, '../../media/');
 const { Config, Editor } = Mixly;
-const SVG_PATH = mediaDirPath + "/compass.svg";
 
-Blockly.Msg['CHASSIS_HUE'] = 20;//'#ae3838';//40;
+Blockly.Msg['CHASSIS_HUE'] = 20;
+Blockly.Msg['LED_HUE'] = 60;
 
 Blockly.Blocks.chassis_init = {
     init: function () {
         var AUTOREEN =
-            [["On", "On"],
-            ["Off", "Off"]
+            [["ON", "On"],
+            ["OFF", "Off"]
             ];
         this.appendDummyInput()
-            .appendField(Blockly.Msg.CHASSIS_INIT)
-            .appendField(Blockly.Msg.CHASSIS_INIT_AUTOREEN)
-            .appendField(new Blockly.FieldDropdown(AUTOREEN), 'init_reen');
+            .appendField(Blockly.Msg.CHASSIS_INIT);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CHASSIS_INIT_AUTOREEN_MOTORS)
+            .appendField(new Blockly.FieldDropdown(AUTOREEN), 'init_reen_motors')
+            .appendField(Blockly.Msg.CHASSIS_INIT_AUTOREEN_PWM)
+            .appendField(new Blockly.FieldDropdown(AUTOREEN), 'init_reen_pwm');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Msg['CHASSIS_HUE']);
@@ -26,25 +28,25 @@ Blockly.Blocks.chassis_init = {
     }
 };
 
-Blockly.Blocks.chassis_check_status = {
+Blockly.Blocks.chassis_check_cn = {
     init: function () {
         this.appendDummyInput()
-            .appendField(Blockly.Msg.CHASSIS_CHECK_STATUS);
+            .appendField(Blockly.Msg.CHASSIS_CHECK_CN);
         this.setOutput(true, null);
         this.setColour(Blockly.Msg['CHASSIS_HUE']);
         this.setTooltip("");
     }
 };
 
-Blockly.Blocks.chassis_status = {
+Blockly.Blocks.chassis_set_motors_status = {
     init: function () {
         var ENABLELIST =
         [["Enable", "Enable"],
         ["Disable", "Disable"]
         ];
         this.appendDummyInput()
-            .appendField(Blockly.Msg.CHASSIS_STATUS)
-            .appendField(new Blockly.FieldDropdown(ENABLELIST), 'chs_en');
+            .appendField(Blockly.Msg.CHASSIS_SET_MOTORS_STATUS)
+            .appendField(new Blockly.FieldDropdown(ENABLELIST), 'chs_en_motors');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Msg['CHASSIS_HUE']);
@@ -52,10 +54,15 @@ Blockly.Blocks.chassis_status = {
     }
 };
 
-Blockly.Blocks.chassis_unlock = {
+Blockly.Blocks.chassis_set_pwm_status = {
     init: function () {
+        var ENABLELIST =
+        [["Enable", "Enable"],
+        ["Disable", "Disable"]
+        ];
         this.appendDummyInput()
-            .appendField(Blockly.Msg.CHASSIS_UNLOCK);
+            .appendField(Blockly.Msg.CHASSIS_SET_PWM_STATUS)
+            .appendField(new Blockly.FieldDropdown(ENABLELIST), 'chs_en_pwm');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(Blockly.Msg['CHASSIS_HUE']);
@@ -154,6 +161,38 @@ Blockly.Blocks.chassis_servos = {
         this.setNextStatement(true, null);
         this.setInputsInline(true, null);
         this.setColour(Blockly.Msg['CHASSIS_HUE']);
+        this.setTooltip("");
+    }
+};
+
+Blockly.Blocks.led_init = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.LED_INIT);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(Blockly.Msg['LED_HUE']);
+        this.setTooltip("");
+    }
+};
+
+Blockly.Blocks.led_set_color = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.LED_SET_COLOR);
+        this.appendValueInput("led_r", Number)
+            .setCheck(Number)
+            .appendField("R:");
+        this.appendValueInput("led_g", Number)
+            .setCheck(Number)
+            .appendField("G:");
+        this.appendValueInput("led_b", Number)
+            .setCheck(Number)
+            .appendField("B:");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true, null);
+        this.setInputsInline(true, null);
+        this.setColour(Blockly.Msg['LED_HUE']);
         this.setTooltip("");
     }
 };

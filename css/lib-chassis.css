@@ -1,8 +1,0 @@
-#mixly_qmc5883l.blocklyTreeRow > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
-    background:url('../media/mark_compass.svg') no-repeat;
-    background-size: 100% auto;
-}
-#mixly_qmc5883l.blocklyTreeRow.blocklyTreeSelected > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
-    background:url('../media/mark_compass2.svg') no-repeat;
-    background-size: 100% auto;
-}

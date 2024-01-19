@@ -1,27 +1,32 @@
 <!--
-  Descirption: Chassis Support Library
+  Descirption: FishChassis mixly arduino library
   Author: qianwan.Jin
   Date: 2023-12-10
   E-mail: qianwan233@foxmail.com
 -->
-<link rel="stylesheet" type="text/css" href="./css/chassis.css"></link>
-<script type="text/javascript" src="./blocks/chassis.js"></script>
-<script type="text/javascript" src="./generators/chassis.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/fishchassis.css"></link>
+<script type="text/javascript" src="./blocks/fishchassis.js"></script>
+<script type="text/javascript" src="./generators/fishchassis.js"></script>
+
+
 <script type="text/javascript" src="./language/zh-hans.js"></script>
 <script type="text/javascript" src="./language/zh-hant.js"></script>
 <script type="text/javascript" src="./language/en.js"></script>
 
-<category name="Chassis" id="mixly_Chassis" colour="20">
+<category name="Chassis" id="fishchassis_Chassis" colour="20">
   <block type="chassis_init">
   </block>
 
-  <block type="chassis_status">
+  <block type="chassis_check_cn">
+  </block>
+
+  <block type="chassis_set_motors_status">
+  </block>
+
+  <block type="chassis_set_pwm_status">
   </block>
 
   <block type="chassis_rst_ins">
-  </block>
-
-  <block type="chassis_check_status">
   </block>
 
   <block type="chassis_get_ins">
@@ -63,22 +68,26 @@
 
 </category>
 
-<category name="LED" id="mixly_led" colour="60">
-  <!-- <block type="chassis_init">
-      <value name="NAME">
-        <shadow type="String">
-        </shadow>
-      </value>
+<category name="LED" id="fishchassis_LED" colour="60">
+  <block type="led_init">
   </block>
 
-  <block type="chassis_status">
+  <block type="led_set_color">
+    <value name="led_r">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="led_g">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="led_b">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
   </block>
-  
-  <block type="chassis_move">
-      <value name="STAT">
-        <shadow type="chassis_status">
-        </shadow>
-      </value>
-  </block> -->
 
 </category>

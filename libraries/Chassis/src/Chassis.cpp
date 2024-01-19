@@ -2,7 +2,7 @@
  * @Description: Library of chassis driver
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2023-12-29 18:31:55
+ * @LastEditTime: 2024-01-20 00:46:03
  * @LastEditors: qianwan
  */
 #include "Chassis.h"
@@ -87,13 +87,26 @@ bool Chassis::Update() {
  *   0: success
  *   1: fail
  */
-bool Chassis::Unlock() {
+bool Chassis::MotorsUnlock() {
   if (_chassis_online) {
     chs_manage.enable_chassis = true;
+    return 0;
+  }
+  return 1;
+}
+
+/**
+ * @description: Unlock the servos
+ * @param {*}
+ * @return
+ *  0: success
+ *  1: fail
+*/
+bool Chassis::PWMUnlock() {
+  if (_chassis_online) {
     chs_manage.enable_servos = true;
     return 0;
   }
-
   return 1;
 }
 
@@ -104,14 +117,29 @@ bool Chassis::Unlock() {
  *   0: success
  *   1: fail
  */
-bool Chassis::Lock() {
+bool Chassis::MotorsLock() {
   chs_manage.enable_chassis = false;
+  chs_ctrl.motor[0] = 0;
+  chs_ctrl.motor[1] = 0;
+  chs_ctrl.motor[2] = 0;
+  chs_ctrl.motor[3] = 0;
+  return _chassis_online;
+}
+
+/**
+ * @description: Lock the servos
+ * @param {*}
+ * @return
+ *   0: success
+ *   1: fail
+ */
+bool Chassis::PWMLock() {
   chs_manage.enable_servos = false;
   return _chassis_online;
 }
 
 /**
- * @description: Reset INS
+ * @description: Reset INS Quaternion as (1, 0, 0, 0)
  * @param {*}
  * @return
  *   0: success
