@@ -1,0 +1,94 @@
+<!--
+  Descirption: Chassis Support Library
+  Author: qianwan.Jin
+  Date: 2023-12-10
+  E-mail: qianwan233@foxmail.com
+-->
+<link rel="stylesheet" type="text/css" href="./css/chassis.css"></link>
+<link rel="stylesheet" type="text/css" href="./css/led.css"></link>
+<script type="text/javascript" src="./blocks/chassis.js"></script>
+<script type="text/javascript" src="./generators/chassis.js"></script>
+
+
+<script type="text/javascript" src="./language/zh-hans.js"></script>
+<script type="text/javascript" src="./language/zh-hant.js"></script>
+<script type="text/javascript" src="./language/en.js"></script>
+
+<category name="Chassis" id="innox_Chassis" colour="20">
+  <block type="chassis_init">
+  </block>
+
+  <block type="chassis_check_cn">
+  </block>
+
+  <block type="chassis_set_motors_status">
+  </block>
+
+  <block type="chassis_set_pwm_status">
+  </block>
+
+  <block type="chassis_rst_ins">
+  </block>
+
+  <block type="chassis_get_ins">
+  </block>
+
+  <block type="chassis_get_vel">
+  </block>
+
+  <block type="chassis_move">
+    <value name="rpm_wheel0">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="rpm_wheel1">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="rpm_wheel2">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="rpm_wheel3">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="chassis_servos">
+    <value name="servo_dc">
+      <shadow type="math_number">
+        <field name="NUM">1499</field>
+      </shadow>
+    </value>
+  </block>
+
+</category>
+
+<category name="LED" id="innox_LED" colour="60">
+  <block type="led_init">
+  </block>
+
+  <block type="led_set_color">
+    <value name="led_r">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="led_g">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="led_b">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+</category>

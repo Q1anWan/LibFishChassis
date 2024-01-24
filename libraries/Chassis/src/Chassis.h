@@ -38,11 +38,11 @@
 
 class Chassis {
 protected:
-    mavlink_chs_motor_info_t chs_ctrl;  // chassis control info
-    mavlink_chs_servos_info_t chs_servos = {1999, 1999, 1999, 1999,
-                                            1999, 1999, 1999};  // chassis servos info
-    mavlink_chs_odom_info_t chs_odom;                           // chassis odom info
-    mavlink_chs_manage_info_t chs_manage;                       // chassis manage info
+    mavlink_chs_motor_info_t chs_ctrl={};  // chassis control info
+    mavlink_chs_servos_info_t chs_servos = {1499, 1499, 1499, 1499,
+                                            1499, 1499, 1499};  // chassis servos info
+    mavlink_chs_odom_info_t chs_odom={};                           // chassis odom info
+    mavlink_chs_manage_info_t chs_manage={};                       // chassis manage info
     uint32_t _lose_cnt = 0;                                     // lose count
     uint32_t _lose_cnt_tmp = 0;                                 // lose count tmp
 

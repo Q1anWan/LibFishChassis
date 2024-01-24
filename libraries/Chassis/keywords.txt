@@ -1,2 +1,15 @@
 Chassis		KEYWORD1
-chassis_set			KEYWORD2
+    
+Init            KEYWORD2
+Update          KEYWORD2
+MotorsUnlock    KEYWORD2
+MotorsLock      KEYWORD2
+PWMUnlock       KEYWORD2
+PWMLock         KEYWORD2
+RstINS          KEYWORD2
+Move            KEYWORD2
+SetServosDutyCycle  KEYWORD2
+IsOnline        KEYWORD2
+GetVelocity     KEYWORD2
+GetINS          KEYWORD2
+GetLoseCnt      KEYWORD2

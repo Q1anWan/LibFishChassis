@@ -2,15 +2,16 @@
  * @Description: Library of chassis driver
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2024-01-20 00:46:03
+ * @LastEditTime: 2024-01-24 17:33:27
  * @LastEditors: qianwan
  */
 #include "Chassis.h"
 #include "Arduino.h"
+#include "freertos/task.h"
 #include "CRC8.h"
 #include "math.h"
 #include "string.h"
-#include <cstdint>
+#include "cstdint"
 
 uint8_t spi_tx_buf[MSG_SPI_LEN];
 uint8_t spi_rx_buf[MSG_SPI_LEN];
@@ -21,7 +22,7 @@ uint8_t spi_rx_buf[MSG_SPI_LEN];
  * @return {*}
  */
 void Chassis::Init() {
-  SPI.setFrequency(4000000);
+  SPI.setFrequency(8000000);
   SPI.setHwCs(false);
   SPI.begin();
   pinMode(SPI.pinSS(), OUTPUT);
@@ -29,7 +30,8 @@ void Chassis::Init() {
 }
 
 /**
- * @description: Update the data of chassis
+ * @description: Update the data from chassis
+ * @details Must periodically call this function
  * @param {*}
  * @return
  *   0: success
@@ -39,7 +41,7 @@ bool Chassis::Update() {
   uint8_t crc_val;
 
   if (!_chassis_online) {
-    vTaskDelay(MSG_RECNT_TIM);
+    vTaskDelay(MSG_RECNT_TIM/portTICK_PERIOD_MS);
     chs_ctrl.motor[0] = 0;
     chs_ctrl.motor[1] = 0;
     chs_ctrl.motor[2] = 0;
@@ -81,7 +83,8 @@ bool Chassis::Update() {
 }
 
 /**
- * @description: Unlock the chassis
+ * @description: Unlock the chassis motors
+ * @details Chassis motors will enable velocity close-loop control
  * @param {*}
  * @return
  *   0: success
@@ -96,22 +99,8 @@ bool Chassis::MotorsUnlock() {
 }
 
 /**
- * @description: Unlock the servos
- * @param {*}
- * @return
- *  0: success
- *  1: fail
-*/
-bool Chassis::PWMUnlock() {
-  if (_chassis_online) {
-    chs_manage.enable_servos = true;
-    return 0;
-  }
-  return 1;
-}
-
-/**
- * @description: Lock the chassis
+ * @description: Lock the chassis motors
+ * @details Chassis motors will disable velocity close-loop control
  * @param {*}
  * @return
  *   0: success
@@ -127,7 +116,24 @@ bool Chassis::MotorsLock() {
 }
 
 /**
+ * @description: Unlock the servos
+ * @details PWM generation will be enabled
+ * @param {*}
+ * @return
+ *  0: success
+ *  1: fail
+*/
+bool Chassis::PWMUnlock() {
+  if (_chassis_online) {
+    chs_manage.enable_servos = true;
+    return 0;
+  }
+  return 1;
+}
+
+/**
  * @description: Lock the servos
+ * @details PWM generation will be disabled
  * @param {*}
  * @return
  *   0: success
@@ -136,21 +142,6 @@ bool Chassis::MotorsLock() {
 bool Chassis::PWMLock() {
   chs_manage.enable_servos = false;
   return _chassis_online;
-}
-
-/**
- * @description: Reset INS Quaternion as (1, 0, 0, 0)
- * @param {*}
- * @return
- *   0: success
- *   1: fail
- */
-bool Chassis::RstINS() {
-  if (_chassis_online) {
-    chs_manage.reset_quaternion = true;
-    return 0;
-  }
-  return 1;
 }
 
 /**
@@ -181,12 +172,14 @@ float Chassis::GetVelocity(uint8_t pst) {
 
 /**
   * @description: Get INS data
+  * @details RFU coordinate system
+  * @details ZYX rotation order
   * @param {uint8_t} Pst
     0: Yaw dgree/s
     1: Ptich dgree/s
     2: Roll dgree/s
   * @return
-    dgree
+    Euler angle
 */
 float Chassis::GetINS(uint8_t pst) {
   switch (pst) {
@@ -218,11 +211,27 @@ float Chassis::GetINS(uint8_t pst) {
 }
 
 /**
- * @Description: Control wheels
- * @param {int16_t} wheel0
- * @param {int16_t} wheel1
- * @param {int16_t} wheel2
- * @param {int16_t} wheel3
+ * @description: Reset INS Quaternion as (1, 0, 0, 0)
+ * @param {*}
+ * @return
+ *   0: success
+ *   1: fail
+ */
+bool Chassis::RstINS() {
+  if (_chassis_online) {
+    chs_manage.reset_quaternion = true;
+    return 0;
+  }
+  return 1;
+}
+
+/**
+ * @description: Control wheels
+ * @details remember to unlock the motors first
+ * @param {int16_t} wheel0 rpm
+ * @param {int16_t} wheel1 rpm
+ * @param {int16_t} wheel2 rpm
+ * @param {int16_t} wheel3 rpm
  * @return
  *   0: success
  *   1: fail
@@ -240,7 +249,8 @@ bool Chassis::Move(int16_t wheel0, int16_t wheel1, int16_t wheel2,
 }
 
 /**
- * @Description: Set the duty cycle of servos
+ * @description: Set the duty cycle of servos
+ * @details remember to unlock the PWM first
  * @param {uint8_t} id
  * @param {uint16_t} duty_cycle
  * @return
