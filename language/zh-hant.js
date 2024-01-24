@@ -17,7 +17,7 @@
     
     ZhHant.CHASSIS_SET_MOTORS_STATUS = '底盤馬達控制'
     ZhHant.CHASSIS_SET_PWM_STATUS = '底盤PWM控制'
-    ZhHant.CHASSIS_CHECK_CN = '底盤通訊狀態'
+    ZhHant.CHASSIS_CHECK_CN = '底盤連接狀態'
     
     ZhHant.CHASSIS_MOVE = '設定馬達轉速(rpm)'
     ZhHant.CHASSIS_GET_VEL = '底盤速度'
@@ -26,6 +26,9 @@
     
     ZhHant.CHASSIS_SERVOS = '設定PWM產生'
     ZhHant.CHASSIS_SERVOS_DC = '比較值:'
+
+    ZhHant.CHASSIS_RMT_CHECK_CN = '遙控器連線狀態'
+    ZhHant.CHASSIS_RMT_READ = '讀取遙控器通道: '
 
     ZhHant.LED_INIT = '初始化LED'
     ZhHant.LED_SET_COLOR = '設定LED顏色'

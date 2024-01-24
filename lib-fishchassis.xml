@@ -13,7 +13,7 @@
 <script type="text/javascript" src="./language/zh-hant.js"></script>
 <script type="text/javascript" src="./language/en.js"></script>
 
-<category name="Chassis" id="fishchassis_Chassis" colour="20">
+<category name="Chassis" id="innox_Chassis" colour="20">
   <block type="chassis_init">
   </block>
 
@@ -66,9 +66,15 @@
     </value>
   </block>
 
+  <block type="chassis_remoter_check_cn">
+  </block>
+
+  <block type="chassis_remoter_read">
+  </block>
+
 </category>
 
-<category name="LED" id="fishchassis_LED" colour="60">
+<category name="LED" id="innox_LED" colour="60">
   <block type="led_init">
   </block>
 

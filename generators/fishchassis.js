@@ -1,8 +1,8 @@
 /*
- * @Description: FishChassis mixly arduino  library
+ * @Description: 
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2024-01-20 03:09:03
+ * @LastEditTime: 2024-01-24 23:31:28
  * @LastEditors: qianwan
  */
 'use strict';
@@ -25,12 +25,12 @@ Blockly.Arduino.forBlock.chassis_init = function() {
     if(auto_en=="On"){
         loop_code += '\n    if(chs.IsOnline()){\n      chs.PWMUnlock();\n    }';
     }
-    loop_code += '\n    vTaskDelay(10);\n  }\n}\n';
+    loop_code += '\n    vTaskDelay(10/portTICK_PERIOD_MS);\n  }\n}\n';
     
     Blockly.Arduino.definitions_['include_chassis'] = '#include <Chassis.h>';
     Blockly.Arduino.definitions_['var_declare_chs'] = `Chassis chs;`;
     Blockly.Arduino.definitions_['esp32_task_'+task] = loop_code;
-    Blockly.Arduino.setups_['setups_esp32_task_'+task] = 'xTaskCreatePinnedToCore(task_' +task+ ', "task_' +task+ '", '+value_length+', NULL, 2, NULL, '+core+');';
+    Blockly.Arduino.setups_['setups_esp32_task_'+task] = 'xTaskCreatePinnedToCore(task_' +task+ ', "task_' +task+ '", '+value_length+', NULL, 15, NULL, '+core+');';
     return '';
 };
 
@@ -93,21 +93,25 @@ Blockly.Arduino.forBlock.chassis_move = function() {
 Blockly.Arduino.forBlock.chassis_servos = function() {
     var dropdown_id = this.getFieldValue('servo_id');
     var duty_cycle = Blockly.Arduino.valueToCode(this, 'servo_dc', Blockly.Arduino.ORDER_ATOMIC);
-
     var code = 'chs.SetServosDutyCycle('+dropdown_id+','+duty_cycle+');\n';
     return code;
 };
 
-Blockly.Arduino.forBlock.led_init = function() {
-    var task = 'led';
-    var core = 0;
-    var value_length = 1024;
-    var loop_code = 'void task_' +task+ '( void * pvParameters ){\n  FastLED.addLeds<WS2812B, 10, RGB>(LED, 1);\n  for(;;){\n    FastLED.show();\n    vTaskDelay(10);\n  }\n}\n';
+Blockly.Arduino.forBlock.chassis_remoter_check_cn = function() {
+    var code = 'chs.IsRemoterOnline()';
+    return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
 
+Blockly.Arduino.forBlock.chassis_remoter_read = function() {
+    var dropdown_id = this.getFieldValue('rmt_id');
+    var code = 'chs.GetRemoter('+dropdown_id+');\n';
+    return code;
+};
+
+Blockly.Arduino.forBlock.led_init = function() {
     Blockly.Arduino.definitions_['include_led'] = '#include <FastLED.h>';
-    Blockly.Arduino.definitions_['var_declare_led'] = `CRGB LED[1];`;
-    Blockly.Arduino.definitions_['esp32_task_'+task] = loop_code;
-    Blockly.Arduino.setups_['setups_esp32_task_'+task] = 'xTaskCreatePinnedToCore(task_' +task+ ', "task_' +task+ '", '+value_length+', NULL, 1, NULL, '+core+');';
+    Blockly.Arduino.definitions_['var_declare_led'] = 'CRGB LED[1];';
+    Blockly.Arduino.setups_['setups_led'] = 'FastLED.addLeds<WS2812B, 10, RGB>(LED, 1);';
     return '';
 };
 
@@ -115,6 +119,6 @@ Blockly.Arduino.forBlock.led_set_color = function() {
     var rgb_r = Blockly.Arduino.valueToCode(this, 'led_r', Blockly.Arduino.ORDER_ATOMIC);
     var rgb_g = Blockly.Arduino.valueToCode(this, 'led_g', Blockly.Arduino.ORDER_ATOMIC);
     var rgb_b = Blockly.Arduino.valueToCode(this, 'led_b', Blockly.Arduino.ORDER_ATOMIC);
-    var code = 'LED[0] = CRGB('+rgb_r+','+rgb_g+','+rgb_b+');\n';
+    var code = 'LED[0] = CRGB('+rgb_r+','+rgb_g+','+rgb_b+');\nFastLED.show();\n';
     return code;
 };

@@ -18,7 +18,7 @@
     ZhHans.CHASSIS_SET_MOTORS_STATUS = '底盘电机控制'
     ZhHans.CHASSIS_SET_PWM_STATUS = '底盘PWM控制'
 
-    ZhHans.CHASSIS_CHECK_CN = '底盘通讯状态'
+    ZhHans.CHASSIS_CHECK_CN = '底盘连接状态'
     
     ZhHans.CHASSIS_MOVE = '设置电机转速(rpm)'
     ZhHans.CHASSIS_GET_VEL = '底盘速度'
@@ -27,6 +27,9 @@
     
     ZhHans.CHASSIS_SERVOS = '设置PWM生成'
     ZhHans.CHASSIS_SERVOS_DC = '比较值:'
+
+    ZhHans.CHASSIS_RMT_CHECK_CN = '遥控器连接状态'
+    ZhHans.CHASSIS_RMT_READ = '读取遥控器通道: '
 
     ZhHans.LED_INIT = '初始化LED'
     ZhHans.LED_SET_COLOR = '设置LED颜色'

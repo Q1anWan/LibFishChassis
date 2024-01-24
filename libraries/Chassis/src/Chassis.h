@@ -2,7 +2,7 @@
  * @Description: Library of FishChassis
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2024-01-20 00:41:51
+ * @LastEditTime: 2024-01-24 22:49:17
  * @LastEditors: qianwan
  */
 #ifndef CHASSIS_H
@@ -10,7 +10,7 @@
 
 #include <cstdint>
 
-#include "./Mavlink/FishChassis/mavlink.h"
+#include "./Mavlink/FishCom/mavlink.h"
 #include "Arduino.h"
 #include "SPI.h"
 
@@ -18,10 +18,8 @@
 #define MSG_SPI_MAX_LOSE 2  // packages
 #define MSG_RECNT_TIM 33    // ms
 
-#define MSG_SPI_TOTAL_TX_LEN (MAVLINK_MSG_ID_CHS_ODOM_INFO_LEN)
-#define MSG_SPI_TOTAL_RX_LEN                                                 \
-    (MAVLINK_MSG_ID_CHS_CTRL_INFO_LEN + MAVLINK_MSG_ID_CHS_SERVOS_INFO_LEN + \
-     MAVLINK_MSG_ID_CHS_MANAGE_INFO_LEN)
+#define MSG_SPI_TOTAL_TX_LEN (MAVLINK_MSG_ID_CHS_ODOM_INFO_LEN + MAVLINK_MSG_ID_CHS_REMOTER_INFO_LEN)
+#define MSG_SPI_TOTAL_RX_LEN (MAVLINK_MSG_ID_CHS_CTRL_INFO_LEN + MAVLINK_MSG_ID_CHS_SERVOS_INFO_LEN + MAVLINK_MSG_ID_CHS_MANAGE_INFO_LEN)
 
 #if (MSG_SPI_TOTAL_TX_LEN > MSG_SPI_TOTAL_RX_LEN)
 #define MSG_SPI_LEN (MSG_SPI_TOTAL_TX_LEN + 1)
@@ -36,13 +34,24 @@
 //   bool update;
 // };
 
+enum eRMT{
+    RMT_ID_CH0 = 0,
+    RMT_ID_CH1,
+    RMT_ID_CH2,
+    RMT_ID_CH3,
+    RMT_ID_WHEEL,
+    RMT_ID_SWL,
+    RMT_ID_SWR
+};
+
 class Chassis {
 protected:
-    mavlink_chs_motor_info_t chs_ctrl={};  // chassis control info
+    mavlink_chs_motor_info_t chs_ctrl = {};  // chassis control info
     mavlink_chs_servos_info_t chs_servos = {1499, 1499, 1499, 1499,
                                             1499, 1499, 1499};  // chassis servos info
-    mavlink_chs_odom_info_t chs_odom={};                           // chassis odom info
-    mavlink_chs_manage_info_t chs_manage={};                       // chassis manage info
+    mavlink_chs_odom_info_t chs_odom = {};                      // chassis odom info
+    mavlink_chs_manage_info_t chs_manage = {};                  // chassis manage info
+    mavlink_chs_remoter_info_t chs_remoter = {};                // chassis remoter info
     uint32_t _lose_cnt = 0;                                     // lose count
     uint32_t _lose_cnt_tmp = 0;                                 // lose count tmp
 
@@ -68,6 +77,11 @@ public:
     float GetVelocity(uint8_t pst);
     float GetINS(uint8_t pst);
     uint32_t GetLoseCnt() { return _lose_cnt; };
+
+    int16_t GetRemoter(uint8_t id);
+    bool IsRemoterOnline(){
+        return chs_remoter.switch_messgae&0x01;
+    }    
 };
 
 #endif

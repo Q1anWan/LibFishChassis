@@ -165,6 +165,38 @@ Blockly.Blocks.chassis_servos = {
     }
 };
 
+Blockly.Blocks.chassis_remoter_check_cn = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CHASSIS_RMT_CHECK_CN);
+        this.setOutput(true, null);
+        this.setColour(Blockly.Msg['CHASSIS_HUE']);
+        this.setTooltip("");
+    }
+};
+
+Blockly.Blocks.chassis_remoter_read = {
+    init: function () {
+        var RMT_ID =
+            [["CH0", "0"],
+            ["CH1", "1"],
+            ["CH2", "2"],
+            ["CH3", "3"],
+            ["WHEEL", "4"],
+            ["SW_L", "5"],
+            ["SW_R", "6"]
+            ];    
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CHASSIS_RMT_READ)
+            .appendField(new Blockly.FieldDropdown(RMT_ID), 'rmt_id');
+        this.setPreviousStatement(true);
+        this.setNextStatement(true, null);
+        this.setInputsInline(true, null);
+        this.setColour(Blockly.Msg['CHASSIS_HUE']);
+        this.setTooltip("");
+    }
+};
+
 Blockly.Blocks.led_init = {
     init: function () {
         this.appendDummyInput()

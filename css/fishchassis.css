@@ -1,17 +1,17 @@
-#fishchassis_Chassis.blocklyTreeRow > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
+#innox_Chassis.blocklyTreeRow > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
     background:url('../media/mark_chassis.svg') no-repeat;
     background-size: 100% auto;
 }
-#fishchassis_Chassis.blocklyTreeRow.blocklyTreeSelected > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
+#innox_Chassis.blocklyTreeRow.blocklyTreeSelected > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
     background:url('../media/mark_chassis.svg') no-repeat;
     background-size: 100% auto;
 }
 
-#fishchassis_LED.blocklyTreeRow > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
+#innox_LED.blocklyTreeRow > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
     background:url('../media/mark_led.svg') no-repeat;
     background-size: 100% auto;
 }
-#fishchassis_LED.blocklyTreeRow.blocklyTreeSelected > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
+#innox_LED.blocklyTreeRow.blocklyTreeSelected > div.blocklyTreeRowContentContainer > span.blocklyTreeIcon{
     background:url('../media/mark_led.svg') no-repeat;
     background-size: 100% auto;
 }

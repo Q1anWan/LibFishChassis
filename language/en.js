@@ -2,7 +2,7 @@
  * @Description: English discribution
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2024-01-20 02:09:33
+ * @LastEditTime: 2024-01-24 23:25:26
  * @LastEditors: qianwan
  */
 (() => {
@@ -25,6 +25,9 @@
 
     En.CHASSIS_SERVOS = 'Set PWM generation'
     En.CHASSIS_SERVOS_DC = 'Compare value:'
+
+    En.CHASSIS_RMT_CHECK_CN = 'Remoter communication status'
+    En.CHASSIS_RMT_READ = 'Read remoter information: '
 
     En.LED_INIT = 'Init LED'
     En.LED_SET_COLOR = 'Set LED color'
