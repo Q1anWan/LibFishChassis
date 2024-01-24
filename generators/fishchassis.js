@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2024-01-24 23:31:28
+ * @LastEditTime: 2024-01-25 02:17:59
  * @LastEditors: qianwan
  */
 'use strict';
@@ -17,7 +17,7 @@ Blockly.Arduino.forBlock.chassis_init = function() {
     var core = 0;
     var value_length = 1024;
     var auto_en = this.getFieldValue('init_reen_motors');
-    var loop_code = 'void task_' +task+ '( void * pvParameters ){\n  chs.Init();\n  for(;;){\n    chs.Update();';
+    var loop_code = 'void task_' +task+ '( void * pvParameters ){\n  vTaskDelay(500/portTICK_PERIOD_MS);\n  chs.Init();\n  for(;;){\n    chs.Update();';
     if(auto_en=="On"){
         loop_code += '\n    if(chs.IsOnline()){\n      chs.MotorsUnlock();\n    }';
     }
