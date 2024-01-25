@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2024-01-25 02:17:59
+ * @LastEditTime: 2024-01-26 00:45:40
  * @LastEditors: qianwan
  */
 'use strict';
@@ -104,8 +104,8 @@ Blockly.Arduino.forBlock.chassis_remoter_check_cn = function() {
 
 Blockly.Arduino.forBlock.chassis_remoter_read = function() {
     var dropdown_id = this.getFieldValue('rmt_id');
-    var code = 'chs.GetRemoter('+dropdown_id+');\n';
-    return code;
+    var code = 'chs.GetRemoter('+dropdown_id+')';
+    return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.forBlock.led_init = function() {

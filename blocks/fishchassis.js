@@ -189,9 +189,7 @@ Blockly.Blocks.chassis_remoter_read = {
         this.appendDummyInput()
             .appendField(Blockly.Msg.CHASSIS_RMT_READ)
             .appendField(new Blockly.FieldDropdown(RMT_ID), 'rmt_id');
-        this.setPreviousStatement(true);
-        this.setNextStatement(true, null);
-        this.setInputsInline(true, null);
+        this.setOutput(true, null);
         this.setColour(Blockly.Msg['CHASSIS_HUE']);
         this.setTooltip("");
     }
