@@ -264,10 +264,8 @@ bool Chassis::SetServosDutyCycle(uint8_t id, uint16_t duty_cycle) {
     if ((id > 6) || (_chassis_online == false)) {
         return 1;
     }
-    if (duty_cycle > 2499) {
-        duty_cycle = 2499;
-    } else if (duty_cycle < 499) {
-        duty_cycle = 499;
+    if (duty_cycle > 19999) {
+        duty_cycle = 19999;
     }
 
     chs_servos.servos[id] = duty_cycle;
