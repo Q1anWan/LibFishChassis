@@ -22,6 +22,10 @@
     
     ZhHans.CHASSIS_MOVE = '设置电机转速(rpm)'
     ZhHans.CHASSIS_GET_VEL = '底盘速度'
+
+    ZhHans.CHASSIS_MOVE_EXTERN_MOTOR = '设置额外电机转速(rpm)'    
+    ZhHans.CHASSIS_GET_EXTERN_MOTOR_VEL = '获取额外电机转速(rpm)'
+
     ZhHans.CHASSIS_GET_INS = '航向角(°)'
     ZhHans.CHASSIS_RST_INS = '重置航向角'
     

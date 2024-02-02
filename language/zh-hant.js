@@ -2,7 +2,7 @@
  * @Description: 简体繁体文字
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2024-01-20 01:30:11
+ * @LastEditTime: 2024-02-02 11:28:13
  * @LastEditors: qianwan
  */
 (() => {
@@ -21,6 +21,10 @@
     
     ZhHant.CHASSIS_MOVE = '設定馬達轉速(rpm)'
     ZhHant.CHASSIS_GET_VEL = '底盤速度'
+
+    ZhHant.CHASSIS_MOVE_EXTERN_MOTOR = '設定馬達轉速(rpm)'    
+    ZhHant.CHASSIS_GET_EXTERN_MOTOR_VEL = '取得額外馬達轉速(rpm)'
+    
     ZhHant.CHASSIS_GET_INS = '航向角(°)'
     ZhHant.CHASSIS_RST_INS = '重置航向角'
     

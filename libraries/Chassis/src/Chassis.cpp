@@ -2,7 +2,7 @@
  * @Description: Library of chassis driver
  * @Author: qianwan
  * @Date: 2023-12-16 22:12:55
- * @LastEditTime: 2024-01-24 22:45:36
+ * @LastEditTime: 2024-02-02 11:19:32
  * @LastEditors: qianwan
  */
 #include "Arduino.h"
@@ -22,7 +22,7 @@ uint8_t spi_rx_buf[MSG_SPI_LEN];
  * @return {*}
  */
 void Chassis::Init() {
-    SPI.setFrequency(8000000);
+    SPI.setFrequency(4000000);
     SPI.setHwCs(false);
     SPI.begin();
     pinMode(SPI.pinSS(), OUTPUT);
@@ -50,10 +50,10 @@ bool Chassis::Update() {
         chs_manage.enable_servos = 0;
     }
 
-    memcpy(spi_tx_buf, &chs_ctrl, sizeof(mavlink_chs_motor_info_t));
-    memcpy(spi_tx_buf + sizeof(mavlink_chs_motor_info_t), &chs_servos,
+    memcpy(spi_tx_buf, &chs_ctrl, sizeof(Msg_MotorExtern_t));
+    memcpy(spi_tx_buf + sizeof(Msg_MotorExtern_t), &chs_servos,
            sizeof(mavlink_chs_servos_info_t));
-    memcpy(spi_tx_buf + sizeof(mavlink_chs_motor_info_t) +
+    memcpy(spi_tx_buf + sizeof(Msg_MotorExtern_t) +
                sizeof(mavlink_chs_servos_info_t),
            &chs_manage, sizeof(mavlink_chs_manage_info_t));
 
@@ -79,7 +79,8 @@ bool Chassis::Update() {
         _lose_cnt_tmp = 0;
         _chassis_online = true;
         memcpy(&chs_odom, spi_rx_buf, sizeof(mavlink_chs_odom_info_t));
-        memcpy(&chs_remoter, spi_rx_buf + sizeof(mavlink_chs_odom_info_t),
+        memcpy(&chs_extern_fdb, spi_rx_buf + sizeof(mavlink_chs_odom_info_t) , sizeof(Msg_MotorExternFDB_t));
+        memcpy(&chs_remoter, spi_rx_buf + sizeof(mavlink_chs_odom_info_t) + sizeof(Msg_MotorExternFDB_t),
                sizeof(mavlink_chs_remoter_info_t));
     }
     return _chassis_online;
@@ -115,6 +116,8 @@ bool Chassis::MotorsLock() {
     chs_ctrl.motor[1] = 0;
     chs_ctrl.motor[2] = 0;
     chs_ctrl.motor[3] = 0;
+    chs_ctrl.motor[4] = 0;
+    chs_ctrl.motor[5] = 0;
     return _chassis_online;
 }
 
@@ -166,6 +169,28 @@ float Chassis::GetVelocity(uint8_t pst) {
         break;
     case 2:
         return chs_odom.vw * 57.2957795f;
+        break;
+    default:
+        return 0;
+        break;
+    }
+}
+
+/**
+ * @description: Get the velocity of extern motors  
+ * @param {uint8_t} id
+ * 4: motor4
+ * 5: motor5
+ * @return
+ *  velocity (RPM)
+*/
+int16_t Chassis::GetExternMotorRPM(uint8_t id){
+    switch (id) {
+    case 4:
+        return chs_extern_fdb.motor[0];
+        break;
+    case 5:
+        return chs_extern_fdb.motor[1];
         break;
     default:
         return 0;
@@ -246,6 +271,24 @@ bool Chassis::Move(int16_t wheel0, int16_t wheel1, int16_t wheel2,
         chs_ctrl.motor[1] = wheel1;
         chs_ctrl.motor[2] = wheel2;
         chs_ctrl.motor[3] = wheel3;
+        return 0;
+    }
+    return 1;
+}
+
+/**
+ * @description: Control extern motors
+ * @details remember to unlock the motors first
+ * @param {int16_t} motor4 rpm
+ * @param {int16_t} motor5 rpm
+ * @return
+ * 0: success
+ * 1: fail
+*/
+bool Chassis::MoveExtern(int16_t motor4, int16_t motor5){
+    if (_chassis_online) {
+        chs_ctrl.motor[4] = motor4;
+        chs_ctrl.motor[5] = motor5;
         return 0;
     }
     return 1;

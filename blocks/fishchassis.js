@@ -114,6 +114,21 @@ Blockly.Blocks.chassis_get_vel = {
     }
 };
 
+Blockly.Blocks.chassis_get_extern_motor_rpm = {
+    init: function () {
+        var VELDIRECTION_EXTERN =
+            [["4", "4"],
+            ["5", "5"]
+            ];
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CHASSIS_GET_EXTERN_MOTOR_VEL)
+            .appendField(new Blockly.FieldDropdown(VELDIRECTION_EXTERN), 'vel_extern_type');
+        this.setOutput(true, null);
+        this.setColour(Blockly.Msg['CHASSIS_HUE']);
+        this.setTooltip("");
+    }
+};
+
 Blockly.Blocks.chassis_move = {
     init: function () {
         this.appendDummyInput()
@@ -130,6 +145,24 @@ Blockly.Blocks.chassis_move = {
         this.appendValueInput("rpm_wheel3", Number)
             .setCheck(Number)
             .appendField("3:");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true, null);
+        this.setInputsInline(true, null);
+        this.setColour(Blockly.Msg['CHASSIS_HUE']);
+        this.setTooltip("");
+    }
+};
+
+Blockly.Blocks.chassis_move_extern_motor = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CHASSIS_MOVE_EXTERN_MOTOR);
+        this.appendValueInput("rpm_wheel4", Number)
+            .setCheck(Number)
+            .appendField("4:");
+        this.appendValueInput("rpm_wheel5", Number)
+            .setCheck(Number)
+            .appendField("5:");
         this.setPreviousStatement(true);
         this.setNextStatement(true, null);
         this.setInputsInline(true, null);

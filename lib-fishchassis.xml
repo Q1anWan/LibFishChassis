@@ -35,6 +35,9 @@
   <block type="chassis_get_vel">
   </block>
 
+  <block type="chassis_get_extern_motor_rpm">
+  </block>
+
   <block type="chassis_move">
     <value name="rpm_wheel0">
       <shadow type="math_number">
@@ -52,6 +55,19 @@
       </shadow>
     </value>
     <value name="rpm_wheel3">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="chassis_move_extern_motor">
+    <value name="rpm_wheel4">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="rpm_wheel5">
       <shadow type="math_number">
         <field name="NUM">0</field>
       </shadow>

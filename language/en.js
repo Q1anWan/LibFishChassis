@@ -19,7 +19,12 @@
     En.CHASSIS_CHECK_CN = 'Chassis communication status'
 
     En.CHASSIS_MOVE = 'Set motors speed(rpm)'
+    En.CHASSIS_MOVE_EXTERN_MOTOR = 'Set external motors speed(rpm)'
+
     En.CHASSIS_GET_VEL = 'Chassis velocity'
+    
+    En.CHASSIS_GET_EXTERN_MOTOR_VEL = 'Get external motor velocity'
+
     En.CHASSIS_GET_INS = 'Heading angle (°)'
     En.CHASSIS_RST_INS = 'Reset heading angle'
 

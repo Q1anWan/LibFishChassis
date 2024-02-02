@@ -81,12 +81,26 @@ Blockly.Arduino.forBlock.chassis_get_vel = function() {
     return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
+Blockly.Arduino.forBlock.chassis_get_extern_motor_rpm = function() {
+    var dropdown_ins = this.getFieldValue('vel_extern_type');
+    var code = 'chs.GetExternMotorRPM('+dropdown_ins+')';
+    return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino.forBlock.chassis_move = function() {
     var Wheel0 = Blockly.Arduino.valueToCode(this, 'rpm_wheel0', Blockly.Arduino.ORDER_ATOMIC);
     var Wheel1 = Blockly.Arduino.valueToCode(this, 'rpm_wheel1', Blockly.Arduino.ORDER_ATOMIC);
     var Wheel2 = Blockly.Arduino.valueToCode(this, 'rpm_wheel2', Blockly.Arduino.ORDER_ATOMIC);
     var Wheel3 = Blockly.Arduino.valueToCode(this, 'rpm_wheel3', Blockly.Arduino.ORDER_ATOMIC);
     var code = 'chs.Move('+Wheel0+','+Wheel1+','+Wheel2+','+Wheel3+');\n';
+    return code;
+};
+
+Blockly.Arduino.forBlock.chassis_move_extern_motor = function() {
+    var Motor4 = Blockly.Arduino.valueToCode(this, 'rpm_wheel4', Blockly.Arduino.ORDER_ATOMIC);
+    var Motor5 = Blockly.Arduino.valueToCode(this, 'rpm_wheel5', Blockly.Arduino.ORDER_ATOMIC);
+    
+    var code = 'chs.MoveExtern('+Motor4+','+Motor5+');\n';
     return code;
 };
 

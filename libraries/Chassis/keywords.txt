@@ -13,3 +13,5 @@ IsOnline        KEYWORD2
 GetVelocity     KEYWORD2
 GetINS          KEYWORD2
 GetLoseCnt      KEYWORD2
+GetExternMotorRPM KEYWORD2
+MoveExtern      KEYWORD2
